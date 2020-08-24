@@ -123,6 +123,8 @@ USER vep
 # Copy downloaded libraries (stage 1) to this image (stage 2)
 COPY --chown=vep:vep --from=builder $OPT_SRC $OPT_SRC
 #############################################################
+FROM ubuntu:18.04
+RUN apt-get -y install git
 
 # Change user to root for the following complilations/installations
 USER root
@@ -166,5 +168,3 @@ RUN echo >> $OPT/.profile && \
     echo export PATH >> $OPT/.profile && \
     # Run INSTALL.pl and remove the ensemb-vep tests and travis
     ./INSTALL.pl -a a -l -n && rm -rf t travisci .travis.yml
-
-RUN apt-get -y install git
