@@ -6,5 +6,3 @@ RUN apt-get update
 RUN apt-get -y install git
 
 RUN git clone https://github.com/konradjk/loftee.git
-
-test
