@@ -86,6 +86,7 @@ FROM ubuntu:18.04
 # a lot of them are required for Bio::DB::BigFile
 RUN apt-get update && apt-get -y install \
     build-essential \
+    git \
     cpanminus \
     curl \
     libmysqlclient-dev \
@@ -123,8 +124,6 @@ USER vep
 # Copy downloaded libraries (stage 1) to this image (stage 2)
 COPY --chown=vep:vep --from=builder $OPT_SRC $OPT_SRC
 #############################################################
-FROM ubuntu:18.04
-RUN apt-get -y install git
 
 # Change user to root for the following complilations/installations
 USER root
