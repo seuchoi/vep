@@ -166,7 +166,7 @@ RUN echo >> $OPT/.profile && \
     echo PATH=$PATH:\$PATH >> $OPT/.profile && \
     echo export PATH >> $OPT/.profile && \
     # Run INSTALL.pl and remove the ensemb-vep tests and travis
-    ./INSTALL.pl -a acfp -s homo_sapiens -g dbNSFP -l -n && rm -rf t travisci .travis.yml
+    ./INSTALL.pl -y GRCh38 -a acp -s homo_sapiens -g dbNSFP -l -n && rm -rf t travisci .travis.yml
 
 RUN git clone https://github.com/konradjk/loftee.git
 RUN mv loftee modules/
