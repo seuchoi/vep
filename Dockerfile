@@ -166,7 +166,47 @@ RUN echo >> $OPT/.profile && \
     echo PATH=$PATH:\$PATH >> $OPT/.profile && \
     echo export PATH >> $OPT/.profile && \
     # Run INSTALL.pl and remove the ensemb-vep tests and travis
-    ./INSTALL.pl -y GRCh38 -a acp -s homo_sapiens -g dbNSFP -l -n && rm -rf t travisci .travis.yml
+    ./INSTALL.pl -y GRCh38 -a acp -s homo_sapiens -g all -l -n && rm -rf t travisci .travis.yml
+
+#
+USER vep
+WORKDIR /opt/vep/src
+RUN ls -ltra
+RUN wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2
+RUN tar -xvjf samtools-1.10.tar.bz2
+RUN mkdir /opt/vep/samtools
+WORKDIR /opt/vep/src/samtools-1.10
+RUN ./configure --without-curses --prefix=/opt/vep/samtools
+RUN make
+RUN make install
+ENV PATH /opt/vep/samtools/bin:$PATH
+RUN echo $PATH
+RUN ls -ltra /opt/vep/samtools
+RUN samtools --version
+
+
+WORKDIR /opt/vep/src
+RUN git clone https://github.com/DBD-SQLite/DBD-SQLite.git
+WORKDIR /opt/vep/src/DBD-SQLite
+RUN mkdir /opt/vep/DBD-SQLite
+RUN perl Makefile.PL PREFIX=/opt/vep/DBD-SQLite
+RUN make
+RUN make test
+RUN make install
+ENV PERL5LIB /opt/vep/DBD-SQLite/lib/x86_64-linux-gnu/perl/5.26.1/:$PERL5LIB
+RUN echo $PERL5LIB
+RUN ls -ltra /opt/vep/src/ensembl-vep
+RUN echo $PATH
+WORKDIR /opt/vep/src/ensembl-vep
 
 RUN git clone https://github.com/konradjk/loftee.git
 RUN mv loftee modules/
+
+RUN cd modules && mkdir loftee_data
+RUN cd loftee_data
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz -o human_ancestor.fa.gz
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.rz.fai -o human_ancestor.fa.rz.fai
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz.gzi -o human_ancestor.fa.gz.gzi
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/gerp_conservation_scores.homo_sapiens.GRCh38.bw -o gerp_conservation_scores.homo_sapiens.GRCh38.bw
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/loftee.sql.gz -o loftee.sql.gz
+RUN gunzip loftee.sql.gz
