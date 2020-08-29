@@ -35,3 +35,21 @@ RUN echo $PERL5LIB
 RUN ls -ltra /opt/vep/src/ensembl-vep
 RUN echo $PATH
 WORKDIR /opt/vep/src/ensembl-vep
+
+
+RUN perl INSTALL.pl -a cfp -s homo_sapiens -y GRCh38 --PLUGINS all
+
+RUN git clone https://github.com/konradjk/loftee.git tmp_clone
+RUN cp -rf loftee /opt/vep/.vep/Plugins
+WORKDIR /opt/vep/.vep/
+RUN mkdir loftee_data
+WORKDIR /opt/vep/.vep/loftee_data
+
+# download optional loftee files human_ancestor_fa
+RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz
+RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.rz.fai
+RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz.gzi
+RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/gerp_conservation_scores.homo_sapiens.GRCh38.bw
+RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/loftee.sql.gz
+RUN gunzip loftee.sql.gz
+WORKDIR /opt/vep/src/ensembl-vep
