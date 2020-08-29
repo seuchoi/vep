@@ -39,7 +39,7 @@ WORKDIR /opt/vep/src/ensembl-vep
 
 RUN perl INSTALL.pl -a cfp -s homo_sapiens -y GRCh38 --PLUGINS all
 
-RUN git clone https://github.com/konradjk/loftee.git tmp_clone
+RUN git clone https://github.com/konradjk/loftee.git
 RUN cp -rf loftee /opt/vep/.vep/Plugins
 WORKDIR /opt/vep/.vep/
 RUN mkdir loftee_data
