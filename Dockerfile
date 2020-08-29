@@ -46,10 +46,10 @@ RUN mkdir loftee_data
 WORKDIR /opt/vep/.vep/loftee_data
 
 # download optional loftee files human_ancestor_fa
-RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz
-RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.rz.fai
-RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz.gzi
-RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/gerp_conservation_scores.homo_sapiens.GRCh38.bw
-RUN wget https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/loftee.sql.gz
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz -o human_ancestor.fa.gz
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.rz.fai -o human_ancestor.fa.rz.fai
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz.gzi -o human_ancestor.fa.gz.gzi
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/gerp_conservation_scores.homo_sapiens.GRCh38.bw -o gerp_conservation_scores.homo_sapiens.GRCh38.bw
+RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/loftee.sql.gz -o loftee.sql.gz
 RUN gunzip loftee.sql.gz
 WORKDIR /opt/vep/src/ensembl-vep
