@@ -49,7 +49,7 @@ WORKDIR /opt/vep/.vep/loftee_data
 RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz -o human_ancestor.fa.gz
 RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.rz.fai -o human_ancestor.fa.rz.fai
 RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/human_ancestor.fa.gz.gzi -o human_ancestor.fa.gz.gzi
-RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/gerp_conservation_scores.homo_sapiens.GRCh38.bw -o gerp_conservation_scores.homo_sapiens.GRCh38.bw
+#### RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/gerp_conservation_scores.homo_sapiens.GRCh38.bw -o gerp_conservation_scores.homo_sapiens.GRCh38.bw
 RUN curl https://personal.broadinstitute.org/konradk/loftee_data/GRCh38/loftee.sql.gz -o loftee.sql.gz
 RUN gunzip loftee.sql.gz
 WORKDIR /opt/vep/src/ensembl-vep
